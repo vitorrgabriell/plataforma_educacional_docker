@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Sala</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Cadastrar Sala</h2>
+        <form action="{{ url_for('cadastrar_sala') }}" method="POST">
+            <label for="nome">Nome da Sala:</label>
+            <input type="text" name="nome" id="nome" required>
+            <button type="submit">Cadastrar</button>
+            <a href="{{ url_for('index') }}" class="btn-primary">Voltar à Página Principal</a>
+        </form>
+    </div>
+</body>
+</html>

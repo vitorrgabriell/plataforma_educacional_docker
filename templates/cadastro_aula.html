@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Aula</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Cadastrar Aula</h2>
+        <form action="{{ url_for('cadastrar_aula') }}" method="POST">
+            <label for="nome">Nome:</label>
+            <input type="text" name="nome" id="nome" required>
+
+            <label for="horario">Horário:</label>
+            <input type="time" name="horario" id="horario" required>
+
+            <label for="sala_id">Sala:</label>
+            <select name="sala_id" id="sala_id" required>
+                {% for sala in salas %}
+                    <option value="{{ sala['id'] }}">{{ sala['nome'] }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="professor_id">Professor (opcional):</label>
+            <select name="professor_id" id="professor_id">
+                <option value="">Nenhum</option>
+                {% for professor in professores %}
+                    <option value="{{ professor['id'] }}">{{ professor['nome'] }}</option>
+                {% endfor %}
+            </select>
+
+            <button type="submit">Cadastrar</button>
+            <a href="{{ url_for('listar_aulas') }}" class="btn-primary">Voltar à Lista de Aulas</a>
+        </form>
+        <br>
+        
+    </div>
+</body>
+</html>

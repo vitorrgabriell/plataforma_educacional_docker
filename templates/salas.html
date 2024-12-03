@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Lista de Salas</h2>
+        <a href="{{ url_for('cadastrar_sala') }}" class="btn-primary">Cadastrar Nova Sala</a>
+        <a href="{{ url_for('index') }}" class="btn-primary">Voltar à Página Principal</a>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for sala in salas %}
+                    <tr>
+                        <td>{{ sala['nome'] }}</td>
+                        <td>
+                            <a href="{{ url_for('editar_sala', id=sala['id']) }}">Editar</a>
+                            <form action="{{ url_for('deletar_sala', id=sala['id']) }}" method="POST" style="display:inline;">
+                                <button type="submit" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aulas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Lista de Aulas</h2>
+        <a href="{{ url_for('cadastrar_aula') }}" class="btn-primary">Cadastrar Nova Aula</a>
+        <a href="{{ url_for('index') }}" class="btn-primary">Voltar à Página Principal</a>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Horário</th>
+                    <th>Sala</th>
+                    <th>Professor</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for aula in aulas %}
+                    <tr>
+                        <td>{{ aula['id'] }}</td>
+                        <td>{{ aula['aula_nome'] }}</td>
+                        <td>{{ aula['horario'] }}</td>
+                        <td>{{ aula['sala_nome'] }}</td>
+                        <td>{{ aula['professor_nome'] or 'N/A' }}</td>
+                        <td>
+                            <a href="{{ url_for('editar_aula', id=aula['id']) }}">Editar</a>
+                            <form action="{{ url_for('deletar_aula', id=aula['id']) }}" method="POST" style="display:inline;">
+                                <button type="submit" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

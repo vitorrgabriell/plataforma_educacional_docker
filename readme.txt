@@ -1,0 +1,19 @@
+após subir o container usando o comando "docker stack deploy --compose-file docker-compose.yml plataforma_educacional", o banco ja vai estar montado.
+
+no navegador, use o link "localhost:8080" para entrar no php my admin e logue com as credenciais: 
+user:root
+senha: senha123
+
+depois do login ter sido realizado, clique em sql, copie e cole o codigo que esta no arquivo "insert.sql"
+
+para testar todas as funcionalidades da aplicação, primeiro cadastre o professor ou a sala, 
+
+assim que o usuario admin foi cadastrado no banco, abra a aplicação com o link "localhost:5000" e realize o login com o usuario que foi 
+cadastrado por meio da aba sql no php my admin
+
+para a orquestração dos containers usando o PORTAINER.IO, utilize o link "localhost:9000", para efetuar o login use as credenciais:
+user: admin
+senha: admin03032005
+
+OBS: caso preferir, gere uma senha hash no arquivo "gerar_hash.py", substituindo o hash gerado pelo hash que esta no codigo do arquivo "insert.sql"
+

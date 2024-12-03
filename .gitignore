@@ -1,0 +1,11 @@
+logs/
+*.log
+__pycache__/
+*.pyc
+
+db_data/
+portainer_data/
+.env
+
+.DS_Store
+Thumbs.db

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Sistema Educacional de Cadastro e Registros Educacionais</h2>
+
+        {% if session['user_type'] == 'admin' %}
+            <a href="{{ url_for('listar_alunos') }}" class="btn-primary">Gerenciar Alunos</a>
+            <a href="{{ url_for('listar_professores') }}" class="btn-primary">Gerenciar Professores</a>
+            <a href="{{ url_for('listar_salas') }}" class="btn-primary">Gerenciar Salas</a>
+            <a href="{{ url_for('listar_aulas') }}" class="btn-primary">Gerenciar Aulas</a>
+        {% elif session['user_type'] == 'professor' %}
+            <a href="{{ url_for('listar_alunos') }}" class="btn-primary">Visualizar Alunos</a>
+            <a href="{{ url_for('listar_aulas') }}" class="btn-primary">Visualizar Aulas</a>
+        {% endif %}
+
+        <a href="{{ url_for('logout') }}" class="btn-primary">Sair</a>
+    </div>
+</body>
+</html>

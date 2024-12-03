@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Alunos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Lista de Alunos</h2>
+        <a href="{{ url_for('cadastro_aluno') }}" class="btn-primary">Cadastrar Novo Aluno</a>
+
+        {% if session['user_type'] == 'admin' %}
+        <a href="{{ url_for('index') }}" class="btn-primary">Voltar à Página Principal</a>
+        {% endif %}
+        
+        {% if session['user_type'] == 'professor' %}
+        <a href="{{ url_for('logout') }}" class="btn-primary">Sair</a>
+        {% endif %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome Completo</th>
+                    <th>RA</th>
+                    <th>Idade</th>
+                    <th>Sala</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for aluno in alunos %}
+                <tr>
+                    <td>{{ aluno[1] }}</td>
+                    <td>{{ aluno[2] }}</td>
+                    <td>{{ aluno[3] }}</td>
+                    <td>{{ aluno[4] }}</td>
+                    <td>
+                        <a href="{{ url_for('edit_aluno', id=aluno[0]) }}">Editar</a>
+                        <form action="{{ url_for('delete_aluno', id=aluno[0]) }}" method="POST" style="display:inline;">
+                            <button type="submit" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

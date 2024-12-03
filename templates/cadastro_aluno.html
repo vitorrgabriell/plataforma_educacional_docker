@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Aluno</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Cadastrar Aluno</h2>
+        <form action="{{ url_for('cadastro_aluno') }}" method="POST">
+            <label for="nome_completo">Nome Completo:</label>
+            <input type="text" name="nome_completo" id="nome_completo" required>
+
+            <label for="ra">RA:</label>
+            <input type="text" name="ra" id="ra" required>
+
+            <label for="idade">Idade:</label>
+            <input type="number" name="idade" id="idade" required>
+
+            <label for="sala">Sala:</label>
+            <select name="sala" id="sala" required>
+                <option value="">Selecione a sala de aula:</option>
+                {% for sala in salas %}
+                <option value="{{ sala['id'] }}">{{ sala['nome'] }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="aula">Aula (opcional):</label>
+            <select name="aula" id="aula">
+                <option value="">Selecione uma aula</option>
+                {% for aula in aulas %}
+                <option value="{{ aula['id'] }}">{{ aula['nome'] }}</option>
+                {% endfor %}
+            </select>
+
+            <button class="btn-primary" type="submit">Cadastrar</button>
+            <a href="{{ url_for('index') }}" class="btn-primary">Voltar à Página Principal</a>
+        </form>
+    </div>
+</body>
+</html>

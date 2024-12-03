@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Aula</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Editar Aula</h2>
+        <form action="{{ url_for('editar_aula', id=aula['id']) }}" method="POST">
+            <label for="nome">Nome:</label>
+            <input type="text" name="nome" id="nome" value="{{ aula['nome'] }}" required>
+
+            <label for="horario">Horário:</label>
+            <input type="time" name="horario" id="horario" value="{{ aula['horario'] }}" required>
+
+            <label for="sala_id">Sala:</label>
+            <select name="sala_id" id="sala_id" required>
+                {% for sala in salas %}
+                    <option value="{{ sala['id'] }}" {% if sala['id'] == aula['sala_id'] %}selected{% endif %}>
+                        {{ sala['nome'] }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <label for="professor_id">Professor (opcional):</label>
+            <select name="professor_id" id="professor_id">
+                <option value="">Nenhum</option>
+                {% for professor in professores %}
+                    <option value="{{ professor['id'] }}" {% if professor['id'] == aula['professor_id'] %}selected{% endif %}>
+                        {{ professor['nome'] }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <button type="submit">Salvar Alterações</button>
+            <a href="{{ url_for('index') }}" class="btn-primary">Voltar à Página Principal</a>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,6 +1,13 @@
-após subir o container usando o comando "docker stack deploy --compose-file docker-compose.yml plataforma_educacional", o banco ja vai estar montado.
+para subir o container, primeiro inicie o docker swarm usando o comando "docker swarm init"
 
-no navegador, use o link "localhost:8080" para entrar no php my admin e logue com as credenciais: 
+depois, faça o build da imagem usando o comando "docker build -t plataforma_educacional-web:latest ."
+
+após usar o comando acima para iniar o docker swarm, use o comando "docker stack deploy --compose-file docker-compose.yml plataforma_educacional", 
+o banco ja vai estar montado.
+
+você pode verificar o status dos serviços usando o comando "docker stack services plataforma_educacional"
+
+após o container estar no ar e funcionando, no navegador, use o link "localhost:8080" para entrar no php my admin e logue com as credenciais: 
 user:root
 senha: senha123
 

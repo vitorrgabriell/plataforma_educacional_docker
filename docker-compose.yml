@@ -72,4 +72,4 @@ volumes:
 
 networks:
   plataforma_network:
-    external: true
+    driver: overlay

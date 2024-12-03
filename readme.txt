@@ -1,11 +1,6 @@
-para subir o container, primeiro inicie o docker swarm usando o comando "docker swarm init"
+para rodar o projeto, caso use um sistema linux, certifique-se de que o usuario esteja no grupo docker ou seja usuario root.
 
-depois, faça o build da imagem usando o comando "docker build -t plataforma_educacional-web:latest ."
-
-após usar o comando acima para buildar a imagem da aplicação web, use o comando "docker stack deploy --compose-file docker-compose.yml plataforma_educacional", para
-subir o container
-
-você pode verificar o status dos serviços usando o comando "docker stack services plataforma_educacional"
+entre na pasta do projeto e rode o comando "docker-compose up -d --build"
 
 após o container estar no ar e funcionando, no navegador, use o link "localhost:8080" para entrar no php my admin e logue com as credenciais: 
 user:root

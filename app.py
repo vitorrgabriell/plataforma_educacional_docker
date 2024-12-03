@@ -4,6 +4,7 @@ from mysql.connector import Error
 import bcrypt
 from functools import wraps
 import os
+from datetime import datetime, timedelta
 
 app = Flask(__name__)
 
@@ -173,11 +174,19 @@ def edit_aluno(id):
     connection = get_db_connection()
     if connection:
         cursor = connection.cursor(dictionary=True)
-        cursor.execute("SELECT * FROM alunos WHERE id = %s", (id,))
-        aluno = cursor.fetchone()
 
+        cursor.execute("""
+            SELECT alunos.*, salas.id AS sala_id, salas.nome AS sala_nome
+            FROM alunos
+            LEFT JOIN salas ON alunos.sala = salas.id
+            WHERE alunos.id = %s
+        """, (id,))
+        aluno = cursor.fetchone()
         if not aluno:
             return "Aluno não encontrado.", 404
+
+        cursor.execute("SELECT id, nome FROM salas")
+        salas = cursor.fetchall()
 
         if request.method == 'POST':
             nome_completo = request.form.get('nome_completo')
@@ -185,8 +194,10 @@ def edit_aluno(id):
             idade = request.form.get('idade')
             sala = request.form.get('sala')
 
-            cursor.execute("UPDATE alunos SET nome = %s, ra = %s, idade = %s, sala = %s WHERE id = %s",
-                           (nome_completo, ra, idade, sala, id))
+            cursor.execute(
+                "UPDATE alunos SET nome = %s, ra = %s, idade = %s, sala = %s WHERE id = %s",
+                (nome_completo, ra, idade, sala, id)
+            )
             connection.commit()
             cursor.close()
             connection.close()
@@ -194,7 +205,7 @@ def edit_aluno(id):
 
         cursor.close()
         connection.close()
-        return render_template('edit_aluno.html', aluno=aluno)
+        return render_template('edit_aluno.html', aluno=aluno, salas=salas)
     return "Erro ao conectar no banco de dados", 500
 
 @app.route('/delete/<int:id>', methods=['POST'])
@@ -429,6 +440,16 @@ def editar_aula(id):
         aula = cursor.fetchone()
         if not aula:
             return "Aula não encontrada", 404
+
+        # Convertendo timedelta para string no formato HH:mm
+        if isinstance(aula['horario'], timedelta):
+            total_seconds = int(aula['horario'].total_seconds())
+            hours = total_seconds // 3600
+            minutes = (total_seconds % 3600) // 60
+            aula['horario'] = f"{hours:02}:{minutes:02}"
+        elif isinstance(aula['horario'], str):
+            # Se vier como string, garantir que está no formato correto
+            aula['horario'] = datetime.strptime(aula['horario'], "%H:%M:%S").strftime("%H:%M")
 
         if request.method == 'POST':
             nome = request.form['nome']

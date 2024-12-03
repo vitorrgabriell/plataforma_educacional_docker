@@ -6,7 +6,7 @@ senha: senha123
 
 depois do login ter sido realizado, clique em sql, copie e cole o codigo que esta no arquivo "insert.sql"
 
-para testar todas as funcionalidades da aplicação, primeiro cadastre o professor ou a sala, 
+para testar todas as funcionalidades da aplicação, primeiro cadastre o professor ou a sala, depois adicione a aula e por fim, realize o cadastro de aluno 
 
 assim que o usuario admin foi cadastrado no banco, abra a aplicação com o link "localhost:5000" e realize o login com o usuario que foi 
 cadastrado por meio da aba sql no php my admin

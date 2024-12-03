@@ -31,7 +31,7 @@ services:
       MYSQL_ROOT_PASSWORD: senha123
       MYSQL_DATABASE: plataforma_educacional
     ports:
-      - "3307:3306"
+      - "3308:3306"
     volumes:
       - db_data:/var/lib/mysql
       - ./db.sql:/docker-entrypoint-initdb.d/db.sql
